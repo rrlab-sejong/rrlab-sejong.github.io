@@ -15,7 +15,7 @@ intro_size: [1500, 1080]
 # - intro_autoplay: true 이면 페이지를 열자마자 소리 없이 재생 (소리는 플레이어에서 켤 수 있음)
 # - intro_loop: true 이면 끝나면 처음부터 반복
 intro_autoplay: true
-intro_loop: true
+intro_loop: false
 topics_heading: "Defense Radar Systems"
 topics:
   - en: "Drone Detection and Tracking Radar"
