@@ -10,6 +10,12 @@ intro_caption: "RRLab 소개 영상"
 intro_video: "videos/rrlab-intro.mp4"
 intro_youtube: ""
 intro_poster: "videos/rrlab-intro.jpg"
+# - intro_size: 영상의 가로, 세로 픽셀 (플레이어 비율을 미리 맞추는 데 씁니다)
+intro_size: [1500, 1080]
+# - intro_autoplay: true 이면 페이지를 열자마자 소리 없이 재생 (소리는 플레이어에서 켤 수 있음)
+# - intro_loop: true 이면 끝나면 처음부터 반복
+intro_autoplay: true
+intro_loop: true
 topics_heading: "Defense Radar Systems"
 topics:
   - en: "Drone Detection and Tracking Radar"

@@ -31,7 +31,7 @@
     </div>
     <figure class="intro-media">
       {{ if $video }}
-      <video controls playsinline preload="metadata"{{ with .Params.intro_poster }}{{ if fileExists (printf "static/%s" .) }} poster="{{ . | relURL }}"{{ end }}{{ end }}>
+      <video id="intro-video" controls playsinline{{ if .Params.intro_autoplay }} autoplay muted{{ end }}{{ if .Params.intro_loop }} loop{{ end }} preload="{{ if .Params.intro_autoplay }}auto{{ else }}metadata{{ end }}"{{ with .Params.intro_size }} width="{{ index . 0 }}" height="{{ index . 1 }}"{{ end }}{{ with .Params.intro_poster }}{{ if fileExists (printf "static/%s" .) }} poster="{{ . | relURL }}"{{ end }}{{ end }}>
         <source src="{{ $video | relURL }}" type="video/mp4">
         브라우저가 동영상을 재생할 수 없습니다. <a href="{{ $video | relURL }}">동영상 파일 받기</a>
       </video>
@@ -43,6 +43,19 @@
     </figure>
   </div>
 </section>
+{{ if and $video .Params.intro_autoplay }}
+<script>
+// 자동 재생: 브라우저 정책상 소리 없이 시작합니다(플레이어의 스피커 버튼으로 소리를 켤 수 있음).
+// 움직임 줄이기를 설정한 방문자에게는 자동 재생하지 않습니다.
+(function () {
+  var v = document.getElementById("intro-video");
+  if (!v) return;
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); v.pause(); return; }
+  var p = v.play && v.play();
+  if (p && p.catch) p.catch(function () {});
+})();
+</script>
+{{ end }}
 {{ end }}
 
 <section class="band">
