@@ -9,7 +9,7 @@ layout: "members"
 # - video_autoplay: true 이면 페이지를 열자마자 소리 없이 재생
 # - video_loop: true 이면 끝나면 처음부터 반복
 video_heading: "Career"
-video_caption: "김은희 교수 경력 소개"
+video_caption: "경력 및 수행과제 소개"
 video: "videos/rrlab-intro.mp4"
 video_youtube: ""
 video_poster: "videos/rrlab-intro.jpg"
