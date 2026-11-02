@@ -131,6 +131,7 @@ body::before {
   background: var(--ppi-bg);
   box-shadow: 0 0 0 10px var(--surface), 0 0 0 11px var(--rule);
 }
+.prof-video { border-top: 1px solid var(--rule); padding-block: clamp(36px, 5vw, 56px); }
 .intro-media { margin: 0; min-width: 0; max-width: 720px; }
 .intro-media video, .intro-media .yt { display: block; width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--rule); }
 .intro-media video { background: var(--surface); }  /* box follows the video's own aspect via width/height attributes */

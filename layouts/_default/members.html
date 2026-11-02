@@ -36,6 +36,41 @@
   </div>
 </section>
 
+{{/* 교수 경력 소개 영상: content/members.md 의 video(파일) 또는 video_youtube. 둘 다 없으면 나오지 않습니다. */}}
+{{ $video := "" }}{{ with .Params.video }}{{ if fileExists (printf "static/%s" .) }}{{ $video = . }}{{ end }}{{ end }}
+{{ if or $video .Params.video_youtube }}
+<section class="wrap prof-video" aria-labelledby="video-h">
+  <div class="section-head">
+    <h2 id="video-h">{{ .Params.video_heading | default "Career" }}</h2>
+    {{ with .Params.video_caption }}<p class="sub">{{ . }}</p>{{ end }}
+  </div>
+  <figure class="intro-media">
+    {{ if $video }}
+    <video id="intro-video" controls playsinline{{ if .Params.video_autoplay }} autoplay muted{{ end }}{{ if .Params.video_loop }} loop{{ end }} preload="{{ if .Params.video_autoplay }}auto{{ else }}metadata{{ end }}"{{ with .Params.video_size }} width="{{ index . 0 }}" height="{{ index . 1 }}"{{ end }}{{ with .Params.video_poster }}{{ if fileExists (printf "static/%s" .) }} poster="{{ . | relURL }}?v={{ now.Unix }}"{{ end }}{{ end }}>
+      <source src="{{ $video | relURL }}?v={{ now.Unix }}" type="video/mp4">
+      브라우저가 동영상을 재생할 수 없습니다. <a href="{{ $video | relURL }}">동영상 파일 받기</a>
+    </video>
+    {{ else }}
+    <div class="yt">
+      <iframe src="https://www.youtube-nocookie.com/embed/{{ .Params.video_youtube }}?rel=0" title="{{ .Params.video_caption | default "경력 소개 영상" }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+    </div>
+    {{ end }}
+  </figure>
+</section>
+{{ if and $video .Params.video_autoplay }}
+<script>
+// 자동 재생: 브라우저 정책상 소리 없이 시작합니다. 움직임 줄이기를 설정한 방문자에게는 자동 재생하지 않습니다.
+(function () {
+  var v = document.getElementById("intro-video");
+  if (!v) return;
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); v.pause(); return; }
+  var p = v.play && v.play();
+  if (p && p.catch) p.catch(function () {});
+})();
+</script>
+{{ end }}
+{{ end }}
+
 <section class="wrap people" aria-labelledby="students-h">
   <div class="section-head">
     <h2 id="students-h">Students</h2>
