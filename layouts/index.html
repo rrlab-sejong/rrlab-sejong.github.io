@@ -20,6 +20,31 @@
   </div>
 </section>
 
+{{/* 소개 동영상: content/_index.md 의 intro_video(파일) 또는 intro_youtube(유튜브). 둘 다 없으면 이 구역이 나오지 않습니다. */}}
+{{ $video := "" }}{{ with .Params.intro_video }}{{ if fileExists (printf "static/%s" .) }}{{ $video = . }}{{ end }}{{ end }}
+{{ if or $video .Params.intro_youtube }}
+<section class="band">
+  <div class="wrap two-col">
+    <div>
+      <h2>{{ .Params.intro_heading | default "Introduction" }}</h2>
+      {{ with .Params.intro_caption }}<p class="sub">{{ . }}</p>{{ end }}
+    </div>
+    <figure class="intro-media">
+      {{ if $video }}
+      <video controls playsinline preload="metadata"{{ with .Params.intro_poster }}{{ if fileExists (printf "static/%s" .) }} poster="{{ . | relURL }}"{{ end }}{{ end }}>
+        <source src="{{ $video | relURL }}" type="video/mp4">
+        브라우저가 동영상을 재생할 수 없습니다. <a href="{{ $video | relURL }}">동영상 파일 받기</a>
+      </video>
+      {{ else }}
+      <div class="yt">
+        <iframe src="https://www.youtube-nocookie.com/embed/{{ .Params.intro_youtube }}?rel=0" title="{{ .Params.intro_caption | default "RRLab 소개 영상" }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
+      </div>
+      {{ end }}
+    </figure>
+  </div>
+</section>
+{{ end }}
+
 <section class="band">
   <div class="wrap two-col">
     <div>
