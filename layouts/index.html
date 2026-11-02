@@ -31,8 +31,8 @@
     </div>
     <figure class="intro-media">
       {{ if $video }}
-      <video id="intro-video" controls playsinline{{ if .Params.intro_autoplay }} autoplay muted{{ end }}{{ if .Params.intro_loop }} loop{{ end }} preload="{{ if .Params.intro_autoplay }}auto{{ else }}metadata{{ end }}"{{ with .Params.intro_size }} width="{{ index . 0 }}" height="{{ index . 1 }}"{{ end }}{{ with .Params.intro_poster }}{{ if fileExists (printf "static/%s" .) }} poster="{{ . | relURL }}"{{ end }}{{ end }}>
-        <source src="{{ $video | relURL }}" type="video/mp4">
+      <video id="intro-video" controls playsinline{{ if .Params.intro_autoplay }} autoplay muted{{ end }}{{ if .Params.intro_loop }} loop{{ end }} preload="{{ if .Params.intro_autoplay }}auto{{ else }}metadata{{ end }}"{{ with .Params.intro_size }} width="{{ index . 0 }}" height="{{ index . 1 }}"{{ end }}{{ with .Params.intro_poster }}{{ if fileExists (printf "static/%s" .) }} poster="{{ . | relURL }}?v={{ now.Unix }}"{{ end }}{{ end }}>
+        <source src="{{ $video | relURL }}?v={{ now.Unix }}" type="video/mp4">
         브라우저가 동영상을 재생할 수 없습니다. <a href="{{ $video | relURL }}">동영상 파일 받기</a>
       </video>
       {{ else }}
